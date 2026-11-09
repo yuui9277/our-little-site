@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" class="is-locked" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我们的小站</title>
+<meta name="description" content="记录我们之间的点滴">
+<meta name="theme-color" content="#fbf7f4">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐷</text></svg>">
+</head>
+<body class="is-loading">
+
+<!-- ══════════ 开场动画 ══════════ -->
+<div class="preloader" id="preloader">
+  <div class="preloader__inner">
+    <div class="preloader__pig" id="preloaderPig" aria-hidden="true"></div>
+    <div class="preloader__names" id="preloaderNames">我们的小站</div>
+    <div class="preloader__meta">
+      <span class="preloader__bar"><i id="preloaderBar"></i></span>
+      <span class="preloader__pct" id="preloaderPct">0</span>
+    </div>
+  </div>
+  <div class="preloader__curtain preloader__curtain--l" aria-hidden="true"></div>
+  <div class="preloader__curtain preloader__curtain--r" aria-hidden="true"></div>
+</div>
+<script>
+/* 兜底：无论后面发生什么，开场动画一定会退场，绝不会把页面挡住 */
+(function () {
+  function dismiss() {
+    var p = document.getElementById('preloader');
+    if (p) p.classList.add('is-done');
+    document.body.classList.remove('is-loading');
+  }
+  window.__dismissPreloader = dismiss;
+  setTimeout(dismiss, 3200);
+})();
+</script>
+<noscript><style>.preloader{display:none!important}body.is-loading{overflow:auto!important}</style></noscript>
+
+<!-- ══════════ 背景层：极光 / 光晕 / 暗角 / 颗粒 ══════════ -->
+<div class="bg" aria-hidden="true">
+  <div class="bg__aurora">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="bg__sheen"></div>
+  <div class="bg__vignette"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ══════════ 鼠标光晕（仅桌面） ══════════ -->
+<div class="cursor" id="cursor" aria-hidden="true">
+  <span class="cursor__ring"></span>
+  <span class="cursor__dot"></span>
+</div>
+
+<!-- ══════════ 阅读进度 ══════════ -->
+<div class="progress" id="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<!-- ══════════ 翻页指示器：点小圆点直接跳到那一页 ══════════ -->
+<div class="pager" id="pager">
+  <span class="pager__count" id="pagerCount">01 / 08</span>
+  <div class="pager__dots" id="pagerDots"></div>
+</div>
+
+<!-- ══════════ 顶部导航 ══════════ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top">
+    <span class="nav__pig" id="navPig" aria-hidden="true"></span>
+    <span id="navTitle">我们的小站</span>
+  </a>
+
+  <nav class="nav__links" id="navLinks">
+    <span class="nav__ink" id="navInk" aria-hidden="true"></span>
+    <a href="#anniversaries">纪念日</a>
+    <a href="#timeline">时间线</a>
+    <a href="#gallery">照片墙</a>
+      <a href="#portraits">她的样子</a>
+    <a href="#places">老地方</a>
+    <a href="#chats">聊天记录</a>
+    <a href="#whispers">悄悄话</a>
+  </nav>
+
+  <div class="nav__tools">
+    <button class="icon-btn" id="musicBtn" title="播放背景音乐" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.6" fill="currentColor"/><circle cx="16.5" cy="16" r="2.6" fill="currentColor"/></svg>
+    </button>
+    <button class="icon-btn" id="themeBtn" title="切换白天 / 夜晚模式">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    </button>
+    <button class="icon-btn nav__burger" id="burgerBtn" title="菜单" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="deck" id="deck">
+<main id="top">
+
+  <!-- ══════════ 封面 ══════════ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg" id="heroBg"></div>
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <!-- 四角细金线，像一张装裱好的相纸 -->
+    <div class="hero__frame" aria-hidden="true">
+      <i></i><i></i><i></i><i></i>
+    </div>
+
+    <div class="hero__inner">
+      <div class="pig-hero" id="pigHero" title="点我一下～">
+        <span class="pig-hero__bubble" id="pigBubble" hidden></span>
+        <svg class="pig" viewBox="0 0 120 112" aria-hidden="true" focusable="false">
+          <path d="M30 34 Q23 8 47 23 Q37 27 30 34 Z" fill="#f9a7bb"/>
+          <path d="M90 34 Q97 8 73 23 Q83 27 90 34 Z" fill="#f9a7bb"/>
+          <ellipse cx="60" cy="58" rx="42" ry="35" fill="#fcbccb"/>
+          <ellipse cx="60" cy="45" rx="28" ry="15" fill="#ffd9e2" opacity=".5"/>
+          <ellipse cx="27" cy="65" rx="9" ry="6" fill="#ff8aa8" opacity=".45"/>
+          <ellipse cx="93" cy="65" rx="9" ry="6" fill="#ff8aa8" opacity=".45"/>
+          <circle cx="43" cy="49" r="4.8" fill="#4a2b33"/>
+          <circle cx="77" cy="49" r="4.8" fill="#4a2b33"/>
+          <circle cx="44.9" cy="47.1" r="1.7" fill="#fff"/>
+          <circle cx="78.9" cy="47.1" r="1.7" fill="#fff"/>
+          <ellipse cx="60" cy="70" rx="17" ry="12.5" fill="#f2879f"/>
+          <ellipse cx="54" cy="70" rx="3.2" ry="4.6" fill="#c9566f"/>
+          <ellipse cx="66" cy="70" rx="3.2" ry="4.6" fill="#c9566f"/>
+        </svg>
+      </div>
+
+      <p class="hero__eyebrow" id="heroEyebrow">写给我们的</p>
+      <h1 class="hero__title" id="heroNames">我 &amp; TA</h1>
+      <div class="hero__rule" aria-hidden="true"><i></i><b>❦</b><i></i></div>
+      <p class="hero__quote" id="heroQuote"></p>
+
+      <div class="counter" id="counter">
+        <span class="counter__pig" id="counterPig" aria-hidden="true"></span>
+        <div class="counter__main">
+          <span class="counter__num" id="daysNum">0</span>
+          <span class="counter__unit">天</span>
+        </div>
+        <div class="counter__sub">已经在一起 <b id="hms">--</b></div>
+        <div class="counter__since" id="sinceText"></div>
+      </div>
+
+      <p class="hero__footnote" id="heroFootnote"></p>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span>往下看</span><i></i>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 纪念日 ══════════ -->
+  <section class="section" id="anniversaries">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <span class="sec-head__idx">01</span>
+        <h2 class="section__title">下一个纪念日</h2>
+        <p class="section__sub">网站会自己算，不用你记</p>
+      </header>
+      <div class="cards" id="anniCards"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 时间线 ══════════ -->
+  <section class="section" id="timeline">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <span class="sec-head__idx">02</span>
+        <h2 class="section__title">我们的大事记</h2>
+        <p class="section__sub">从第一天到现在</p>
+      </header>
+      <div class="timeline" id="timelineList"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 照片墙 ══════════ -->
+  <section class="section" id="gallery">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <span class="sec-head__idx">03</span>
+        <h2 class="section__title">照片墙</h2>
+        <p class="section__sub">点一下可以放大看</p>
+      </header>
+      <div class="masonry" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 她的样子 ══════════ -->
+  <section class="section" id="portraits">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <span class="sec-head__idx">04</span>
+        <h2 class="section__title">她的样子</h2>
+        <p class="section__sub">十二张自拍 · 点一下可以放大看</p>
+      </header>
+      <div class="masonry" id="portraitsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 老地方 ══════════ -->
+  <section class="section" id="places">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <span class="sec-head__idx">05</span>
+        <h2 class="section__title">对我们重要的地方</h2>
+        <p class="section__sub">有些地方因为去过，就变得不一样了</p>
+      </header>
+      <div class="cards cards--places" id="placesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 聊天记录 ══════════ -->
+  <section class="section" id="chats">
+    <div class="wrap wrap--narrow">
+      <header class="sec-head reveal">
+        <span class="sec-head__idx">06</span>
+        <h2 class="section__title">舍不得删的几句话</h2>
+        <p class="section__sub">从聊天记录里挑出来的</p>
+      </header>
+      <div class="chats" id="chatsList"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ 06 悄悄话 ══════════ -->
+  <section class="section section--whisper" id="whispers">
+    <div class="wrap wrap--narrow">
+      <header class="sec-head reveal">
+        <span class="sec-head__idx">07</span>
+        <h2 class="section__title">想对你说的话</h2>
+        <p class="section__sub">小猪替你转达</p>
+      </header>
+      <div class="whisper reveal">
+        <span class="whisper__glow" aria-hidden="true"></span>
+        <div class="whisper__mark" aria-hidden="true">“</div>
+        <p class="whisper__text" id="whisperText">—</p>
+        <button class="btn btn--ghost" id="whisperBtn">
+          <span>小猪再说一句</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.9-6.2M20 3v4h-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="pig-row" id="pigRow" aria-hidden="true"></div>
+  <p class="footer__line1" id="footerLine1"></p>
+  <p class="footer__line2" id="footerLine2"></p>
+  <p class="footer__tick"><span id="footerDays">0</span> 天</p>
+</footer>
+
+<!-- 左右页角：捏住书角就能翻页 -->
+<button class="leaf leaf--prev" id="leafPrev" aria-label="上一页"><span>‹</span></button>
+<button class="leaf leaf--next" id="leafNext" aria-label="下一页"><span>›</span></button>
+
+</div>
+
+<!-- ══════════ 回到顶部 ══════════ -->
+<button class="totop" id="totop" title="回到顶部" aria-label="回到顶部">
+  <svg class="totop__ring" viewBox="0 0 44 44" aria-hidden="true">
+    <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".22"/>
+    <circle class="totop__arc" id="totopArc" cx="22" cy="22" r="20" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" transform="rotate(-90 22 22)"/>
+  </svg>
+  <span class="totop__arrow" aria-hidden="true">↑</span>
+</button>
+
+<!-- ══════════ 灯箱 ══════════ -->
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox__backdrop" id="lbBackdrop" aria-hidden="true"></div>
+  <button class="lightbox__close" id="lbClose" aria-label="关闭">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="上一张">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="下一张">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="lightbox__stage">
+    <div class="lightbox__media" id="lbMedia"></div>
+    <div class="lightbox__foot">
+      <div class="lightbox__cap" id="lbCap"></div>
+      <div class="lightbox__count" id="lbCount"></div>
+    </div>
+    <div class="lightbox__thumbs" id="lbThumbs"></div>
+  </div>
+</div>
+
+<audio id="bgm" loop preload="none"></audio>
+
+<!-- 小猪模板：页面上好几处小猪都是从这里复制出去的 -->
+<template id="pigTpl">
+  <svg class="pig" viewBox="0 0 120 112" aria-hidden="true" focusable="false">
+    <path d="M30 34 Q23 8 47 23 Q37 27 30 34 Z" fill="#f9a7bb"/>
+    <path d="M90 34 Q97 8 73 23 Q83 27 90 34 Z" fill="#f9a7bb"/>
+    <ellipse cx="60" cy="58" rx="42" ry="35" fill="#fcbccb"/>
+    <ellipse cx="60" cy="45" rx="28" ry="15" fill="#ffd9e2" opacity=".5"/>
+    <ellipse cx="27" cy="65" rx="9" ry="6" fill="#ff8aa8" opacity=".45"/>
+    <ellipse cx="93" cy="65" rx="9" ry="6" fill="#ff8aa8" opacity=".45"/>
+    <circle cx="43" cy="49" r="4.8" fill="#4a2b33"/>
+    <circle cx="77" cy="49" r="4.8" fill="#4a2b33"/>
+    <circle cx="44.9" cy="47.1" r="1.7" fill="#fff"/>
+    <circle cx="78.9" cy="47.1" r="1.7" fill="#fff"/>
+    <ellipse cx="60" cy="70" rx="17" ry="12.5" fill="#f2879f"/>
+    <ellipse cx="54" cy="70" rx="3.2" ry="4.6" fill="#c9566f"/>
+    <ellipse cx="66" cy="70" rx="3.2" ry="4.6" fill="#c9566f"/>
+  </svg>
+</template>
+
+<script>window.LOCKED={file:"data/content.enc.json"};</script>
+<script src="js/app.js"></script>
+</body>
+</html>
